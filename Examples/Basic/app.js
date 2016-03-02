@@ -1,15 +1,3 @@
-# react-native-actionsheet
-Cross platform ActionSheet.
-
-# Installation
-
-```
-npm i react-native-actionsheet --save
-```
-
-# Demo
-
-```javascript
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -72,45 +60,10 @@ const styles = StyleSheet.create({
     }
 });
 
-AppRegistry.registerComponent('RNActionSheet', () => RNActionSheet);
-```
+export default RNActionSheet;
 
-# Props
 
-<table>
-    <tr>
-        <th>prop</th>
-        <th>type</th>
-        <th>default</th>
-    </tr>
-    <tr>
-        <td>title</td>
-        <td>string</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>options</td>
-        <td>string</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>tintColor</td>
-        <td>string</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>cancelButtonIndex</td>
-        <td>string</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>destructiveButtonIndex</td>
-        <td>string</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>onPress</td>
-        <td>function</td>
-        <td>() => {}</td>
-    </tr>
-</table>
+
+
+
+
