@@ -12,4 +12,5 @@ if (React.Platform.OS === 'ios') {
 	ActionSheet = ActionSheetCustom;
 }
 
+// export default ActionSheet;
 export default ActionSheetCustom;
