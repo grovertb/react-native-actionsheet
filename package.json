@@ -1,0 +1,22 @@
+{
+  "name": "react-native-actionsheet",
+  "version": "0.1.0",
+  "description": "Cross platform ActionSheet.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beefe/react-native-actionsheet.git"
+  },
+  "keywords": [
+    "ActionSheet"
+  ],
+  "author": "yannxiao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/beefe/react-native-actionsheet/issues"
+  },
+  "homepage": "https://github.com/beefe/react-native-actionsheet#readme"
+}
