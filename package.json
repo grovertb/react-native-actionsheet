@@ -1,7 +1,7 @@
 {
   "name": "react-native-actionsheet",
-  "version": "0.1.2",
-  "description": "Cross platform ActionSheet.",
+  "version": "0.1.3",
+  "description": "Cross platform ActionSheet. This component implements a custom ActionSheet  and provides the same way to drawing it on the defferent platforms(iOS and Android). Actually, In order to keep the best effect, it still uses the ActionSheetIOS on iOS.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/beefe/react-native-actionsheet.git"
   },
   "keywords": [
-    "ActionSheet"
+    "ActionSheet sheet react native"
   ],
   "author": "yannxiao",
   "license": "MIT",

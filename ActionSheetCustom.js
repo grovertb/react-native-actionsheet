@@ -92,8 +92,8 @@ class ActionSheet extends React.Component {
 			return (
 				<TouchableHighlight 
 					activeOpacity={1} 
-					underlayColor="#f3efef" 
-					style={[btnStyle.wrapper, {marginTop: 10, borderRadius: RADIUS}]} 
+					underlayColor="#f4f4f4" 
+					style={[btnStyle.wrapper, {marginTop: 6}]} 
 					onPress={this.hide.bind(this, cancelButtonIndex)}
 				>
 					<Text style={[btnStyle.title, {fontWeight: '700', color: tintColor}]}>{options[cancelButtonIndex]}</Text>
@@ -109,7 +109,7 @@ class ActionSheet extends React.Component {
 			<TouchableHighlight 
 				key={index}
 				activeOpacity={1} 
-				underlayColor="#f3efef" 
+				underlayColor="#f4f4f4" 
 				style={[btnStyle.wrapper, style || {}]} 
 				onPress={this.hide.bind(this, index)}
 			>
@@ -122,8 +122,7 @@ class ActionSheet extends React.Component {
 		let {options, tintColor, cancelButtonIndex, destructiveButtonIndex} = this.props;
 		return options.map((title, index) => {
 			let fontColor = destructiveButtonIndex === index ? WARN_COLOR : tintColor;
-			let style = index + 1 === options.length ? {borderBottomLeftRadius: RADIUS, borderBottomRightRadius: RADIUS} : null;
-			return index === cancelButtonIndex ? null : this._createButton(title, fontColor, index, style);
+			return index === cancelButtonIndex ? null : this._createButton(title, fontColor, index);
 		});
 	}
 

@@ -36,26 +36,18 @@ export default StyleSheet.create({
 export const sheetStyle = StyleSheet.create({
 	wrapper: {
 		width: width,
-		paddingLeft: 10,
-		paddingRight: 10,
-		paddingBottom: 10,
-		alignSelf: 'flex-end'
+		alignSelf: 'flex-end',
+		backgroundColor: '#e5e5e5'
 	},
 	title: {
-		height: 45,
+		height: 40,
 		alignItems: 'center',
-		borderTopLeftRadius: RADIUS,
-		borderTopRightRadius: RADIUS,
 		justifyContent: 'center',
 		backgroundColor: '#fff'
 	},
 	titleText: {
 		color: '#8f8f8f',
 		fontSize: 12
-	},
-	options: {
-		borderRadius: RADIUS,
-		overflow: 'hidden'
 	}
 });
 
@@ -63,8 +55,6 @@ export const btnStyle = StyleSheet.create({
 	wrapper: {
 		height: 50,
 		marginTop: hairlineWidth,
-		borderTopWidth: hairlineWidth,
-		borderColor: '#dbdbdf',
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#fff'
