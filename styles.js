@@ -1,11 +1,11 @@
 'use strict';
 
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, StatusBar} from 'react-native';
 
 
 const {width, height} = Dimensions.get('window');
-const RADIUS = 10;
 
+export const RADIUS = 10;
 
 export const hairlineWidth = StyleSheet.hairlineWidth;
 
@@ -15,7 +15,6 @@ export default StyleSheet.create({
 		width: width,
 		height: height,
 		position: 'absolute',
-		top: 0,
 		right: 0,
 		bottom: 0,
 		left: 0,
@@ -43,26 +42,29 @@ export const sheetStyle = StyleSheet.create({
 		alignSelf: 'flex-end'
 	},
 	title: {
-		paddingTop: 15,
-		paddingBottom: 15,
+		height: 45,
+		alignItems: 'center',
+		borderTopLeftRadius: RADIUS,
+		borderTopRightRadius: RADIUS,
+		justifyContent: 'center',
+		backgroundColor: '#fff'
+	},
+	titleText: {
 		color: '#8f8f8f',
-		fontSize: 12,
-		textAlign: 'center'
+		fontSize: 12
 	},
 	options: {
 		borderRadius: RADIUS,
-		overflow: 'hidden',
-		backgroundColor: '#fff'
+		overflow: 'hidden'
 	}
 });
 
 export const btnStyle = StyleSheet.create({
 	wrapper: {
 		height: 50,
-		borderRadius: RADIUS,
+		marginTop: hairlineWidth,
 		borderTopWidth: hairlineWidth,
 		borderColor: '#dbdbdf',
-		overflow: 'hidden',
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#fff'

@@ -4,7 +4,7 @@ import React, {
 	View, Text, PropTypes, Dimensions, Animated, TouchableHighlight
 } from 'react-native';
 
-import styles, {btnStyle, sheetStyle} from './styles';
+import styles, {btnStyle, sheetStyle, RADIUS} from './styles';
 
 
 const {width, height} = Dimensions.get('window');
@@ -76,7 +76,11 @@ class ActionSheet extends React.Component {
 
 	_renderTitle() {
 		if (this.props.title) {
-			return <Text style={sheetStyle.title}>{this.props.title}</Text>	
+			return (
+				<View style={sheetStyle.title}>
+					<Text style={sheetStyle.titleText}>{this.props.title}</Text>
+				</View>	
+			);
 		} else {
 			return null;
 		}
@@ -89,7 +93,7 @@ class ActionSheet extends React.Component {
 				<TouchableHighlight 
 					activeOpacity={1} 
 					underlayColor="#f3efef" 
-					style={[btnStyle.wrapper, {marginTop: 10}]} 
+					style={[btnStyle.wrapper, {marginTop: 10, borderRadius: RADIUS}]} 
 					onPress={this.hide.bind(this, cancelButtonIndex)}
 				>
 					<Text style={[btnStyle.title, {fontWeight: '700', color: tintColor}]}>{options[cancelButtonIndex]}</Text>
@@ -118,7 +122,8 @@ class ActionSheet extends React.Component {
 		let {options, tintColor, cancelButtonIndex, destructiveButtonIndex} = this.props;
 		return options.map((title, index) => {
 			let fontColor = destructiveButtonIndex === index ? WARN_COLOR : tintColor;
-			return index === cancelButtonIndex ? null : this._createButton(title, fontColor, index);
+			let style = index + 1 === options.length ? {borderBottomLeftRadius: RADIUS, borderBottomRightRadius: RADIUS} : null;
+			return index === cancelButtonIndex ? null : this._createButton(title, fontColor, index, style);
 		});
 	}
 

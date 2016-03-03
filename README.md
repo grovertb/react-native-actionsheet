@@ -1,6 +1,8 @@
 # react-native-actionsheet
 Cross platform ActionSheet. This component implements a custom ActionSheet  and provides the same way to drawing it on the defferent platforms(iOS and Android). Actually, In order to keep the best effect, it still uses the ActionSheetIOS on iOS.
 
+![ios demo](./ios.png) ![android demo](./android.png)
+
 # Installation
 
 ```
@@ -79,37 +81,44 @@ AppRegistry.registerComponent('RNActionSheet', () => RNActionSheet);
 
 <table>
     <tr>
-        <th>prop</th>
-        <th>type</th>
-        <th>default</th>
+        <th>Prop name</th>
+        <th>Desciption</th>
+        <th>Type</th>
+        <th>Default</th>
     </tr>
     <tr>
         <td>title</td>
+        <td></td>
         <td>string</td>
         <td></td>
     </tr>
     <tr>
         <td>options</td>
+        <td></td>
         <td>string</td>
         <td></td>
     </tr>
     <tr>
         <td>tintColor</td>
+        <td></td>
         <td>string</td>
         <td></td>
     </tr>
     <tr>
         <td>cancelButtonIndex</td>
+        <td></td>
         <td>string</td>
         <td></td>
     </tr>
     <tr>
         <td>destructiveButtonIndex</td>
+        <td></td>
         <td>string</td>
         <td></td>
     </tr>
     <tr>
         <td>onPress</td>
+        <td></td>
         <td>function</td>
         <td>() => {}</td>
     </tr>
