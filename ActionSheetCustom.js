@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {
-	View, Text, PropTypes, Dimensions, Animated, TouchableHighlight
+	View, Text, PropTypes, Dimensions, Animated, TouchableHighlight, TouchableWithoutFeedback
 } from 'react-native';
 
 import styles, {btnStyle, sheetStyle, RADIUS} from './styles';
@@ -134,7 +134,9 @@ class ActionSheet extends React.Component {
 		} else {
 			return (
 				<View style={styles.wrapper}>
-					<Animated.View style={[styles.overlay, {opacity: state.fadeAnim}]}></Animated.View>
+					<TouchableWithoutFeedback onPress={this.hide.bind(this)}>
+						<Animated.View style={[styles.overlay, {opacity: state.fadeAnim}]}></Animated.View>
+					</TouchableWithoutFeedback>	
 					<Animated.View 
 						ref={o => this.sheet = o} 
 						style={[sheetStyle.wrapper, {transform: [{translateY: state.sheetAnim}]}]}
