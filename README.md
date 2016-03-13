@@ -120,6 +120,6 @@ AppRegistry.registerComponent('RNActionSheet', () => RNActionSheet);
         <td>onPress</td>
         <td></td>
         <td>function</td>
-        <td>() => {}</td>
+        <td>(index) => {}</td>
     </tr>
 </table>
