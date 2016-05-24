@@ -126,6 +126,6 @@ import {ActionSheetCustom as ActionSheet} from 'react-native-actionsheet';
         <td>onPress</td>
         <td></td>
         <td>function</td>
-        <td>() => {}</td>
+        <td>(index) => {}</td>
     </tr>
 </table>
