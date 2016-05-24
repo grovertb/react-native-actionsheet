@@ -33,6 +33,8 @@ export const sheetStyle = StyleSheet.create({
 	titleText: {
 		color: '#8f8f8f',
 		fontSize: 12
+	},
+	options: {
 	}
 });
 

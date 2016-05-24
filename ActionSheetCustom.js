@@ -1,20 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 import {
-	Text, View, StyleSheet, 
-	Modal, TouchableHighlight, Animated
+	Text, View, StyleSheet, Dimensions,
+	Modal, TouchableHighlight, Animated, ScrollView
 } from 'react-native';
 
-import styles, {btnStyle, sheetStyle} from './styles';
+import styles, {btnStyle, sheetStyle, hairlineWidth} from './styles';
 
 
-const BUTTON_H 				= 50;
+const TITLE_H 				= 40;
+const CANCEL_MARGIN  		= 6;
+const BUTTON_H 				= 50 + hairlineWidth;
 const WARN_COLOR 			= '#ff3b30';
+const MAX_HEIGHT 			= Dimensions.get('window').height * 0.7;
 
 
 class ActionSheet extends Component {
 
 	constructor(props) {
 		super(props);
+		this.scrollEnabled = false;
 		this.translateY = this._calculateHeight();
 		this.state = {
 			visible: false,
@@ -50,8 +54,15 @@ class ActionSheet extends Component {
 
 	_calculateHeight() {
 		let count = this.props.options.length;
-		if (this.props.title) count += 1; 
-		return BUTTON_H * count + 20;
+		let height = BUTTON_H * count + CANCEL_MARGIN;
+		if (this.props.title) height += TITLE_H;
+		if (height > MAX_HEIGHT) {
+			this.scrollEnabled = true;
+			return MAX_HEIGHT;
+		} else {
+			this.scrollEnabled = false;
+			return height;
+		}
 	}
 
 	_renderTitle() {
@@ -119,12 +130,14 @@ class ActionSheet extends Component {
 				<View style={sheetStyle.wrapper}>
 					<Text style={styles.overlay} onPress={() => this.hide()}></Text>
 					<Animated.View 
-						style={[sheetStyle.bd, {transform: [{translateY: state.sheetAnim}]}]}
+						style={[sheetStyle.bd, {height: this.translateY, transform: [{translateY: state.sheetAnim}]}]}
 					>
-						<View style={sheetStyle.options}>
-							{this._renderTitle()}
+						{this._renderTitle()}
+						<ScrollView 
+							scrollEnabled={this.scrollEnabled}
+							contentContainerStyle={sheetStyle.options}>
 							{this._renderOptions()}
-						</View>	
+						</ScrollView>	
 						{this._renderCancelButton()}
 					</Animated.View>
 				</View>	
