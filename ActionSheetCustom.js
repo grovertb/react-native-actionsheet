@@ -1,70 +1,50 @@
-'use strict';
-
-import React, {
-	View, Text, PropTypes, Dimensions, Animated, TouchableHighlight, TouchableWithoutFeedback
+import React, {Component, PropTypes} from 'react';
+import {
+	Text, View, StyleSheet, 
+	Modal, TouchableHighlight, Animated
 } from 'react-native';
 
-import styles, {btnStyle, sheetStyle, RADIUS} from './styles';
+import styles, {btnStyle, sheetStyle} from './styles';
 
 
-const {width, height} = Dimensions.get('window');
-const BUTTON_H = 50;
-const DURATION = 250;
-const WARN_COLOR = '#ff3b30';
+const BUTTON_H 				= 50;
+const WARN_COLOR 			= '#ff3b30';
 
 
+class ActionSheet extends Component {
 
-class ActionSheet extends React.Component {
-	
 	constructor(props) {
 		super(props);
-
 		this.translateY = this._calculateHeight();
-
 		this.state = {
 			visible: false,
-			fadeAnim: new Animated.Value(0),
 			sheetAnim: new Animated.Value(this.translateY)
 		};
 	}
-
+	
 	show() {
 		this.setState({visible: true});
-		this._showOverlay();
 		this._showSheet();
 	}
 
 	hide(index) {
-		this._hideOverlay(() => this.setState({visible: false}));
-		this._hideSheet();
-		this.props.onPress(index);
-	}
-
-	_showOverlay() {
-		Animated.timing(this.state.fadeAnim, {
-			toValue: 0.4,
-			duration: DURATION
-		}).start();
-	}
-
-	_hideOverlay(callback) {
-		Animated.timing(this.state.fadeAnim, {
-			toValue: 0,
-			duration: DURATION
-		}).start(callback || function() {});
+		this._hideSheet(() => {
+			this.setState({visible: false});
+			this.props.onPress(index);
+		});
 	}
 
 	_showSheet() {
 		Animated.timing(this.state.sheetAnim, {
 			toValue: 0,
-			duration: DURATION
+			duration: 250
 		}).start();
 	}
 
 	_hideSheet(callback) {
 		Animated.timing(this.state.sheetAnim, {
 			toValue: this.translateY,
-			duration: DURATION
+			duration: 150
 		}).start(callback || function() {});
 	}
 
@@ -129,17 +109,17 @@ class ActionSheet extends React.Component {
 	render() {
 		let state = this.state;
 
-		if (state.visible === false) {
-			return null;
-		} else {
-			return (
-				<View style={styles.wrapper}>
-					<TouchableWithoutFeedback onPress={this.hide.bind(this)}>
-						<Animated.View style={[styles.overlay, {opacity: state.fadeAnim}]}></Animated.View>
-					</TouchableWithoutFeedback>	
+		return (
+			<Modal 
+				visible={this.state.visible}
+				transparent={true}
+				animationType="none"
+				onRequestClose={() => {}}
+			>
+				<View style={sheetStyle.wrapper}>
+					<Text style={styles.overlay} onPress={() => this.hide()}></Text>
 					<Animated.View 
-						ref={o => this.sheet = o} 
-						style={[sheetStyle.wrapper, {transform: [{translateY: state.sheetAnim}]}]}
+						style={[sheetStyle.bd, {transform: [{translateY: state.sheetAnim}]}]}
 					>
 						<View style={sheetStyle.options}>
 							{this._renderTitle()}
@@ -147,11 +127,12 @@ class ActionSheet extends React.Component {
 						</View>	
 						{this._renderCancelButton()}
 					</Animated.View>
-				</View>
-			);
-		}
+				</View>	
+			</Modal>
+		);
 	}
 }
+
 
 ActionSheet.propTypes = {
 	title: 					PropTypes.string,
@@ -162,6 +143,7 @@ ActionSheet.propTypes = {
 	onPress: 				PropTypes.func
 };
 
+
 ActionSheet.defaultProps = {
 	tintColor: 				'#007aff',
 	onPress: 				() => {}
@@ -169,8 +151,3 @@ ActionSheet.defaultProps = {
 
 
 export default ActionSheet;
-
-
-
-
-

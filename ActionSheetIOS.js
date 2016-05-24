@@ -1,6 +1,5 @@
-'use strict';
-
-import React, {ActionSheetIOS, PropTypes} from 'react-native';
+import React, {PropTypes} from 'react';
+import {ActionSheetIOS} from 'react-native';
 
 
 const optionNames = [

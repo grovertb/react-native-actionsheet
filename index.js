@@ -1,15 +1,15 @@
-'use strict';
+import {Platform} from 'react-native';
+import _ActionSheetIOS from './ActionSheetIOS';
+import _ActionSheetCustom from './ActionSheetCustom';
 
-import React from 'react-native';
-import ActionSheetIOS from './ActionSheetIOS';
-import ActionSheetCustom from './ActionSheetCustom';
+export const ActionSheetCustom = _ActionSheetCustom;
 
 let ActionSheet;
 
-if (React.Platform.OS === 'ios') {
-	ActionSheet = ActionSheetIOS;
+if (Platform.OS === 'ios') {
+	ActionSheet = _ActionSheetIOS;
 } else {
-	ActionSheet = ActionSheetCustom;
+	ActionSheet = _ActionSheetCustom;
 }
 
 export default ActionSheet;
