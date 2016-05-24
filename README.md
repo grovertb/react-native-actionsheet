@@ -77,6 +77,12 @@ const styles = StyleSheet.create({
 AppRegistry.registerComponent('RNActionSheet', () => RNActionSheet);
 ```
 
+## 直接使用自定义的ActionSheet，统一双平台的样式
+
+```js
+import {ActionSheetCustom as ActionSheet} from 'react-native-actionsheet';
+```
+
 # Props
 
 <table>
