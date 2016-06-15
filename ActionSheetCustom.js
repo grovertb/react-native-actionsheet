@@ -24,6 +24,7 @@ class ActionSheet extends Component {
 			visible: false,
 			sheetAnim: new Animated.Value(this.translateY)
 		};
+		this._cancel = this._cancel.bind(this);
 	}
 	
 	show() {
@@ -36,6 +37,15 @@ class ActionSheet extends Component {
 			this.setState({visible: false});
 			this.props.onPress(index);
 		});
+	}
+
+	_cancel() {
+		const { cancelButtonIndex } = this.props;
+		// 保持和 ActionSheetIOS 一致，
+		// 未设置 cancelButtonIndex 时，点击背景不隐藏 ActionSheet
+		if (cancelButtonIndex > -1) {
+			this.hide(cancelButtonIndex);
+		}
 	}
 
 	_showSheet() {
@@ -85,7 +95,7 @@ class ActionSheet extends Component {
 					activeOpacity={1} 
 					underlayColor="#f4f4f4" 
 					style={[btnStyle.wrapper, {marginTop: 6}]} 
-					onPress={this.hide.bind(this, cancelButtonIndex)}
+					onPress={this._cancel}
 				>
 					<Text style={[btnStyle.title, {fontWeight: '700', color: tintColor}]}>{options[cancelButtonIndex]}</Text>
 				</TouchableHighlight>
@@ -118,19 +128,19 @@ class ActionSheet extends Component {
 	}
 
 	render() {
-		let state = this.state;
-
+		const { cancelButtonIndex } = this.props;
+		const { visible, sheetAnim } = this.state;
 		return (
 			<Modal 
-				visible={this.state.visible}
+				visible={visible}
 				transparent={true}
 				animationType="none"
 				onRequestClose={() => {}}
 			>
 				<View style={sheetStyle.wrapper}>
-					<Text style={styles.overlay} onPress={() => this.hide()}></Text>
+					<Text style={styles.overlay} onPress={this._cancel}></Text>
 					<Animated.View 
-						style={[sheetStyle.bd, {height: this.translateY, transform: [{translateY: state.sheetAnim}]}]}
+						style={[sheetStyle.bd, {height: this.translateY, transform: [{translateY: sheetAnim}]}]}
 					>
 						{this._renderTitle()}
 						<ScrollView 
