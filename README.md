@@ -1,7 +1,7 @@
 # react-native-actionsheet
 Cross platform ActionSheet. This component implements a custom ActionSheet  and provides the same way to drawing it on the defferent platforms(iOS and Android). Actually, In order to keep the best effect, it still uses the ActionSheetIOS on iOS.
 
-![ios demo](./ios.png) ![android demo](./android.png)
+<img height="500" src="./ios.png" /> <img height="500" src="./android.png" />
 
 # Installation
 
