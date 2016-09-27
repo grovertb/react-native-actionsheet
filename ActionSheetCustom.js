@@ -135,7 +135,7 @@ class ActionSheet extends Component {
 				visible={visible}
 				transparent={true}
 				animationType="none"
-				onRequestClose={() => {}}
+				onRequestClose={() => {this._cancel()}}
 			>
 				<View style={sheetStyle.wrapper}>
 					<Text style={styles.overlay} onPress={this._cancel}></Text>
