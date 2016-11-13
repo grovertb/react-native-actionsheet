@@ -19,14 +19,18 @@ class ActionSheet extends Component {
 	constructor(props) {
 		super(props);
 		this.scrollEnabled = false;
-		this.translateY = this._calculateHeight();
+		this.translateY = this._calculateHeight(props);
 		this.state = {
 			visible: false,
 			sheetAnim: new Animated.Value(this.translateY)
 		};
 		this._cancel = this._cancel.bind(this);
 	}
-	
+
+	componentWillReceiveProps(nextProps) {
+		this.translateY = this._calculateHeight(nextProps);
+	}
+
 	show() {
 		this.setState({visible: true});
 		this._showSheet();
@@ -62,10 +66,10 @@ class ActionSheet extends Component {
 		}).start(callback || function() {});
 	}
 
-	_calculateHeight() {
-		let count = this.props.options.length;
+	_calculateHeight(props) {
+		let count = props.options.length;
 		let height = BUTTON_H * count + CANCEL_MARGIN;
-		if (this.props.title) height += TITLE_H;
+		if (props.title) height += TITLE_H;
 		if (height > MAX_HEIGHT) {
 			this.scrollEnabled = true;
 			return MAX_HEIGHT;
@@ -80,7 +84,7 @@ class ActionSheet extends Component {
 			return (
 				<View style={sheetStyle.title}>
 					<Text style={sheetStyle.titleText}>{this.props.title}</Text>
-				</View>	
+				</View>
 			);
 		} else {
 			return null;
@@ -91,10 +95,10 @@ class ActionSheet extends Component {
 		let {options, cancelButtonIndex, tintColor} = this.props;
 		if (cancelButtonIndex > -1 && options[cancelButtonIndex]) {
 			return (
-				<TouchableHighlight 
-					activeOpacity={1} 
-					underlayColor="#f4f4f4" 
-					style={[btnStyle.wrapper, {marginTop: 6}]} 
+				<TouchableHighlight
+					activeOpacity={1}
+					underlayColor="#f4f4f4"
+					style={[btnStyle.wrapper, {marginTop: 6}]}
 					onPress={this._cancel}
 				>
 					<Text style={[btnStyle.title, {fontWeight: '700', color: tintColor}]}>{options[cancelButtonIndex]}</Text>
@@ -107,11 +111,11 @@ class ActionSheet extends Component {
 
 	_createButton(title, fontColor, index, style) {
 		return (
-			<TouchableHighlight 
+			<TouchableHighlight
 				key={index}
-				activeOpacity={1} 
-				underlayColor="#f4f4f4" 
-				style={[btnStyle.wrapper, style || {}]} 
+				activeOpacity={1}
+				underlayColor="#f4f4f4"
+				style={[btnStyle.wrapper, style || {}]}
 				onPress={this.hide.bind(this, index)}
 			>
 				<Text style={[btnStyle.title, {color: fontColor}]}>{title}</Text>
@@ -131,7 +135,7 @@ class ActionSheet extends Component {
 		const { cancelButtonIndex } = this.props;
 		const { visible, sheetAnim } = this.state;
 		return (
-			<Modal 
+			<Modal
 				visible={visible}
 				transparent={true}
 				animationType="none"
@@ -139,18 +143,18 @@ class ActionSheet extends Component {
 			>
 				<View style={sheetStyle.wrapper}>
 					<Text style={styles.overlay} onPress={this._cancel}></Text>
-					<Animated.View 
+					<Animated.View
 						style={[sheetStyle.bd, {height: this.translateY, transform: [{translateY: sheetAnim}]}]}
 					>
 						{this._renderTitle()}
-						<ScrollView 
+						<ScrollView
 							scrollEnabled={this.scrollEnabled}
 							contentContainerStyle={sheetStyle.options}>
 							{this._renderOptions()}
-						</ScrollView>	
+						</ScrollView>
 						{this._renderCancelButton()}
 					</Animated.View>
-				</View>	
+				</View>
 			</Modal>
 		);
 	}
