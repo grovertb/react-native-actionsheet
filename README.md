@@ -11,7 +11,7 @@ npm i react-native-actionsheet --save
 
 ## Usage
 
-```
+```javascript
 import React from 'react'
 import { View, Text, StyleSheet, Modal, ListView } from 'react-native'
 import ActionSheet from 'react-native-actionsheet'
@@ -65,7 +65,7 @@ class ExampleA extends React.Component {
 
 so you can customize option and title
 
-```
+```javascript
 import React from 'react'
 import { View, Text, StyleSheet, Modal, ListView } from 'react-native'
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
@@ -146,7 +146,7 @@ class ExampleB extends React.Component {
     <tr>
         <td>tintColor</td>
         <td></td>
-        <td>string</td>
+        <td>PropTypes.string</td>
         <td></td>
     </tr>
     <tr>
@@ -164,7 +164,7 @@ class ExampleB extends React.Component {
     <tr>
         <td>onPress</td>
         <td></td>
-        <td>function</td>
+        <td>PropTypes.func</td>
         <td>(index) => {}</td>
     </tr>
 </table>
