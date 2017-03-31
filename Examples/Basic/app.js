@@ -1,98 +1,86 @@
-import React, {Component} from 'react';
-import {
-    View, Text, StyleSheet, Modal, ListView
-} from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet, Modal, ListView } from 'react-native'
+import ActionSheet from 'react-native-actionsheet'
+import { ActionSheetCustom } from 'react-native-actionsheet'
 
-import {ActionSheetCustom as ActionSheet} from 'react-native-actionsheet';
-// import ActionSheet from 'react-native-actionsheet';
+const CANCEL_INDEX = 0
+const DESTRUCTIVE_INDEX = 1
+const options1 = [ '取消', '确认退出', '😄😄😄', '哈哈哈' ]
+const options2 = [
+  '取消', '确认退出', '😄😄😄', '哈哈哈',
+  <Text style={{color: '#287373'}}>自定义内容</Text>
+]
 
-const buttons = [
-    '取消', '确认退出', '😄😄😄', '哈哈哈',
-];
-const CANCEL_INDEX = 0;
-const DESTRUCTIVE_INDEX = 1;
-
-// console.log(Component)
-// export default function () { return null;}
-
-class Child extends Component {
-    constructor(props) {
-        super(props);
+class Demo extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selected: ''
     }
+    this.handlePress = this.handlePress.bind(this)
+    this.showActionSheet = this.showActionSheet.bind(this)
+    this.showActionSheetCustom = this.showActionSheetCustom.bind(this)
+  }
 
-    _handlePress(index) {
-        console.log('index: ', index);
-    }
+  showActionSheet() {
+    this.ActionSheet.show()
+  }
 
-    show() {
-        this.ActionSheet.show();
-    }
+  showActionSheetCustom() {
+    this.ActionSheetCustom.show()
+  }
 
-    render() {
-        return (
-            <View style={styles.wrapper}>
-                <Text style={styles.button} onPress={this.show.bind(this)}>SHOW</Text>
+  handlePress(i) {
+    this.setState({
+      selected: i
+    })
+  }
 
-                <ActionSheet 
-                    ref={(o) => this.ActionSheet = o}
-                    title="确认要退出登录吗？"
-                    options={buttons}
-                    cancelButtonIndex={CANCEL_INDEX}
-                    destructiveButtonIndex={DESTRUCTIVE_INDEX}
-                    onPress={this._handlePress.bind(this)}
-                >
-                    <Text style={{color: 'red'}}>123</Text>
-                    <Text style={{color: 'red'}}>123</Text>
-                </ActionSheet>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View style={styles.wrapper}>
+        <Text style={{marginBottom: 20}} >selected index: {this.state.selected}</Text>
+        <Text style={styles.button} onPress={this.showActionSheet}>Show ActionSheet</Text>
+        <Text style={styles.button} onPress={this.showActionSheetCustom}>Show Custom ActionSheet</Text>
+        <ActionSheet
+          ref={o => this.ActionSheet = o}
+          title="确认要退出登录吗？"
+          options={options1}
+          cancelButtonIndex={CANCEL_INDEX}
+          destructiveButtonIndex={DESTRUCTIVE_INDEX}
+          onPress={this.handlePress}
+        />
+        <ActionSheetCustom
+          ref={o => this.ActionSheetCustom = o}
+          title="确认要退出登录吗？"
+          options={options2}
+          cancelButtonIndex={CANCEL_INDEX}
+          destructiveButtonIndex={DESTRUCTIVE_INDEX}
+          onPress={this.handlePress}
+        />
+      </View>
+    )
+  }
 }
-
-var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-class RNActionSheet extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <View style={{flex: 1, backgroundColor: '#fff', paddingBottom: 0}}>
-                <ListView
-                    dataSource={ds.cloneWithRows(['row 1', 'row 2'])}
-                    renderRow={(data) => <Child />}
-                >
-
-                </ListView>
-                <View style={{flex:1,height:200,backgroundColor:'blue'}}><Text>Bottom</Text></View>
-            </View>
-        );
-    }
-}
-
-
 
 const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1, 
-        paddingBottom: 200, 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        backgroundColor: 'red'
-    },
-    button: {
-        width: 200,
-        margin: 10,
-        paddingTop: 15,
-        paddingBottom: 15,
-        color: '#fff',
-        textAlign: 'center',
-        backgroundColor: 'blue'
-    }
-});
+  wrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  button: {
+    width: 200,
+    marginBottom: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
+    textAlign: 'center',
+    color: '#fff',
+    backgroundColor: '#38f'
+  }
+})
 
-export default RNActionSheet;
+export default Demo
 
 
 
