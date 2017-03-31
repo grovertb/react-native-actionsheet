@@ -9,81 +9,120 @@ Cross platform ActionSheet. This component implements a custom ActionSheet  and 
 npm i react-native-actionsheet --save
 ```
 
-# Demo
+## Usage
 
-```javascript
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-'use strict';
+```
+import React from 'react'
+import { View, Text, StyleSheet, Modal, ListView } from 'react-native'
+import ActionSheet from 'react-native-actionsheet'
 
-import React, {
-    AppRegistry,
-    Component,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native';
+const CANCEL_INDEX = 0
+const DESTRUCTIVE_INDEX = 4
+const options = [ 'Cancel', 'Apple', 'Banana', 'Watermelon', 'Durian' ]
+const title = 'Which one do you like?'
 
-import ActionSheet from 'react-native-actionsheet';
-
-
-const buttons = ['取消', '确认退出', '😄😄😄', '哈哈哈'];
-const CANCEL_INDEX = 0;
-const DESTRUCTIVE_INDEX = 1;
-
-
-class RNActionSheet extends Component {
-
-    _handlePress(index) {
+class ExampleA extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selected: ''
     }
+    this.handlePress = this.handlePress.bind(this)
+    this.showActionSheet = this.showActionSheet.bind(this)
+  }
 
-    show() {
-        this.ActionSheet.show();
-    }
+  showActionSheet() {
+    this.ActionSheet.show()
+  }
 
-    render() {
-        return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={styles.button} onPress={this.show.bind(this)}>SHOW</Text>
+  handlePress(i) {
+    this.setState({
+      selected: i
+    })
+  }
 
-                <ActionSheet 
-                    ref={(o) => this.ActionSheet = o}
-                    title="确认要退出登录吗？"
-                    options={buttons}
-                    cancelButtonIndex={CANCEL_INDEX}
-                    destructiveButtonIndex={DESTRUCTIVE_INDEX}
-                    onPress={this._handlePress.bind(this)}
-                />
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View style={styles.wrapper}>
+        <Text style={{marginBottom: 20}} >I like {options[this.state.selected]}</Text>
+        <Text style={styles.button} onPress={this.showActionSheet}>Example A</Text>
+        <ActionSheet
+          ref={o => this.ActionSheet = o}
+          title={title}
+          options={options}
+          cancelButtonIndex={CANCEL_INDEX}
+          destructiveButtonIndex={DESTRUCTIVE_INDEX}
+          onPress={this.handlePress}
+        />
+      </View>
+    )
+  }
 }
+```
 
 
-const styles = StyleSheet.create({
-    button: {
-        width: 200,
-        margin: 10,
-        paddingTop: 15,
-        paddingBottom: 15,
-        color: '#fff',
-        textAlign: 'center',
-        backgroundColor: 'blue'
+## Use ActionSheetCustom directly
+
+so you can customize option and title
+
+```
+import React from 'react'
+import { View, Text, StyleSheet, Modal, ListView } from 'react-native'
+import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
+
+const CANCEL_INDEX = 0
+const DESTRUCTIVE_INDEX = 4
+
+const options = [ 
+  'Cancel', 
+  'Apple', 
+  <Text style={{color: 'yellow'}}>Banana</Text>,
+  'Watermelon', 
+  <Text style={{color: 'red'}}>Durian</Text>
+]
+
+const title = <Text style={{color: '#000', fontSize: 18}}>Which one do you like?</Text>
+
+class ExampleB extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selected: ''
     }
-});
+    this.handlePress = this.handlePress.bind(this)
+    this.showActionSheet = this.showActionSheet.bind(this)
+  }
 
-AppRegistry.registerComponent('RNActionSheet', () => RNActionSheet);
+  showActionSheet() {
+    this.ActionSheet.show()
+  }
+
+  handlePress(i) {
+    this.setState({
+      selected: i
+    })
+  }
+
+  render() {
+    return (
+      <View style={styles.wrapper}>
+        <Text style={{marginBottom: 20}} >I like {options[this.state.selected]}</Text>
+        <Text style={styles.button} onPress={this.showActionSheet}>Example B</Text>
+        <ActionSheet
+          ref={o => this.ActionSheet = o}
+          title={title}
+          options={options}
+          cancelButtonIndex={CANCEL_INDEX}
+          destructiveButtonIndex={DESTRUCTIVE_INDEX}
+          onPress={this.handlePress}
+        />
+      </View>
+    )
+  }
+}
 ```
 
-## 直接使用自定义的ActionSheet，统一双平台的样式
-
-```js
-import {ActionSheetCustom as ActionSheet} from 'react-native-actionsheet';
-```
-
-# Props
+## Props
 
 <table>
     <tr>
@@ -95,13 +134,13 @@ import {ActionSheetCustom as ActionSheet} from 'react-native-actionsheet';
     <tr>
         <td>title</td>
         <td></td>
-        <td>string</td>
+        <td>PropTypes.string or PropTypes.element</td>
         <td></td>
     </tr>
     <tr>
         <td>options</td>
         <td></td>
-        <td>string</td>
+        <td>PropTypes.arrayOf([PropTypes.string, PropTypes.element])</td>
         <td></td>
     </tr>
     <tr>
@@ -113,13 +152,13 @@ import {ActionSheetCustom as ActionSheet} from 'react-native-actionsheet';
     <tr>
         <td>cancelButtonIndex</td>
         <td></td>
-        <td>string</td>
+        <td>PropTypes.number</td>
         <td></td>
     </tr>
     <tr>
         <td>destructiveButtonIndex</td>
         <td></td>
-        <td>string</td>
+        <td>PropTypes.number</td>
         <td></td>
     </tr>
     <tr>
