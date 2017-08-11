@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/beefe/react-native-actionsheet/issues"
   },
-  "homepage": "https://github.com/beefe/react-native-actionsheet#readme"
+  "homepage": "https://github.com/beefe/react-native-actionsheet#readme",
+  "peerDependencies": {
+    "prop-types": ">=15.5.0",
+    "react": ">=15.4.0"
+  }
 }
