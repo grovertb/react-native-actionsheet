@@ -4,11 +4,11 @@ import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 
 const CANCEL_INDEX = 0
 const DESTRUCTIVE_INDEX = 4
-const options = [ 
-  'Cancel', 
-  'Apple', 
+const options = [
+  'Cancel',
+  'Apple',
   <Text style={{color: 'yellow'}}>Banana</Text>,
-  'Watermelon', 
+  'Watermelon',
   <Text style={{color: 'red'}}>Durian</Text>
 ]
 const title = <Text style={{color: '#000', fontSize: 18}}>Which one do you like?</Text>

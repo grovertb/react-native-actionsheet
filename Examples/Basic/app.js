@@ -1,3 +1,4 @@
+import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import ExampleA from './ExampleA'
 import ExampleB from './ExampleB'
