@@ -35,6 +35,7 @@ class ExampleA extends React.Component {
         <ActionSheet
           ref={o => this.ActionSheet = o}
           title={title}
+          message="custom message custom message custom message custom message custom message custom message "
           options={options}
           cancelButtonIndex={CANCEL_INDEX}
           destructiveButtonIndex={DESTRUCTIVE_INDEX}
