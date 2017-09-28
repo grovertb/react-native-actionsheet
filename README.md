@@ -138,6 +138,12 @@ class ExampleB extends React.Component {
         <td></td>
     </tr>
     <tr>
+        <td>message</td>
+        <td></td>
+        <td>PropTypes.string or PropTypes.element</td>
+        <td></td>
+    </tr>
+    <tr>
         <td>options</td>
         <td></td>
         <td>PropTypes.arrayOf([PropTypes.string, PropTypes.element])</td>
