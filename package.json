@@ -8,7 +8,10 @@
     "test": "jest --no-cache"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/Examples"
+    ]
   },
   "files": [
     "lib"
