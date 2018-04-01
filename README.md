@@ -3,6 +3,19 @@ Cross platform ActionSheet. This component implements a custom ActionSheet  and 
 
 <img height="500" src="./doc/ios.png"> <img height="500" src="./doc/android.png">
 
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <img width="210" src="./doc/ios-custom.png">
+      </td>
+      <td align="center" valign="top">
+        <img width="210" src="./doc/ios-native.png">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 # Installation
 
 ```

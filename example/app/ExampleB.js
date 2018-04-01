@@ -45,7 +45,7 @@ class ExampleB extends React.Component {
           cancelButtonIndex={CANCEL_INDEX}
           destructiveButtonIndex={DESTRUCTIVE_INDEX}
           onPress={this.handlePress}
-          styles={{titleText: {color: 'red'}}}
+          styles={{messageBox: { height: 60 }}}
         />
       </View>
     )

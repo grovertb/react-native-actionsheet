@@ -26,7 +26,7 @@ export default {
     backgroundColor: '#fff'
   },
   titleText: {
-    color: '#858585',
+    color: '#757575',
     fontSize: 14
   },
   messageBox: {
@@ -39,7 +39,7 @@ export default {
     backgroundColor: '#fff'
   },
   messageText: {
-    color: '#8f8f8f',
+    color: '#9a9a9a',
     fontSize: 12
   },
   buttonBox: {

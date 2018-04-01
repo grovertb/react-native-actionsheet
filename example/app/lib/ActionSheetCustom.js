@@ -88,10 +88,12 @@ class ActionSheet extends React.Component {
     const styles = this.styles
 
     const getHeight = (name) => {
-      const s = styles[name]
+      const style = styles[name][styles[name].length - 1]
       let h = 0
       ;['height', 'marginTop', 'marginBottom'].forEach((attrName) => {
-        if (typeof s[attrName] !== 'undefined') h += s[attrName]
+        if (typeof style[attrName] !== 'undefined') {
+          h += style[attrName]
+        }
       })
       return h
     }
@@ -185,7 +187,7 @@ class ActionSheet extends React.Component {
         onRequestClose={this._cancel}
       >
         <View style={[styles.wrapper]}>
-          <Animated.View
+          <Text
             style={[styles.overlay]}
             onPress={this._cancel}
           />
