@@ -14,56 +14,32 @@ Cross platform ActionSheet. This component implements a custom ActionSheet  and 
   </tbody>
 </table>
 
-# Installation
+## Install
 
 ```
-npm i react-native-actionsheet --save
+npm install react-native-actionsheet --save
 ```
 
 ## Usage
 
-```javascript
-import React from 'react'
-import { View, Text, StyleSheet, Modal, ListView } from 'react-native'
+```js
 import ActionSheet from 'react-native-actionsheet'
 
-const CANCEL_INDEX = 0
-const DESTRUCTIVE_INDEX = 4
-const options = [ 'Cancel', 'Apple', 'Banana', 'Watermelon', 'Durian' ]
-const title = 'Which one do you like?'
-
-class ExampleA extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selected: ''
-    }
-    this.handlePress = this.handlePress.bind(this)
-    this.showActionSheet = this.showActionSheet.bind(this)
-  }
-
-  showActionSheet() {
+class Demo extends React.Component {
+  showActionSheet = () => {
     this.ActionSheet.show()
   }
-
-  handlePress(i) {
-    this.setState({
-      selected: i
-    })
-  }
-
   render() {
     return (
-      <View style={styles.wrapper}>
-        <Text style={{marginBottom: 20}} >I like {options[this.state.selected]}</Text>
-        <Text style={styles.button} onPress={this.showActionSheet}>Example A</Text>
+      <View>
+        <Text onPress={this.showActionSheet}>Open ActionSheet</Text>
         <ActionSheet
           ref={o => this.ActionSheet = o}
-          title={title}
-          options={options}
-          cancelButtonIndex={CANCEL_INDEX}
-          destructiveButtonIndex={DESTRUCTIVE_INDEX}
-          onPress={this.handlePress}
+          title={'Which one do you like ?'}
+          options={['Apple', 'Banana', 'cancel']}
+          cancelButtonIndex={2}
+          destructiveButtonIndex={1}
+          onPress={(index) => { /* do something */ }}
         />
       </View>
     )
@@ -72,19 +48,14 @@ class ExampleA extends React.Component {
 ```
 
 
-## Use ActionSheetCustom directly
+### Use ActionSheetCustom directly
 
 so you can customize option and title
 
-```javascript
-import React from 'react'
-import { View, Text, StyleSheet, Modal, ListView } from 'react-native'
+```js
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 
-const CANCEL_INDEX = 0
-const DESTRUCTIVE_INDEX = 4
-
-const options = [ 
+const options = [
   'Cancel', 
   'Apple', 
   <Text style={{color: 'yellow'}}>Banana</Text>,
@@ -92,40 +63,21 @@ const options = [
   <Text style={{color: 'red'}}>Durian</Text>
 ]
 
-const title = <Text style={{color: '#000', fontSize: 18}}>Which one do you like?</Text>
-
-class ExampleB extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selected: ''
-    }
-    this.handlePress = this.handlePress.bind(this)
-    this.showActionSheet = this.showActionSheet.bind(this)
-  }
-
-  showActionSheet() {
+class Demo extends React.Component {
+  showActionSheet = () => {
     this.ActionSheet.show()
   }
-
-  handlePress(i) {
-    this.setState({
-      selected: i
-    })
-  }
-
   render() {
     return (
-      <View style={styles.wrapper}>
-        <Text style={{marginBottom: 20}} >I like {options[this.state.selected]}</Text>
-        <Text style={styles.button} onPress={this.showActionSheet}>Example B</Text>
+      <View>
+        <Text onPress={this.showActionSheet}>Open ActionSheet</Text>
         <ActionSheet
           ref={o => this.ActionSheet = o}
-          title={title}
+          title={<Text style={{color: '#000', fontSize: 18}}>Which one do you like?</Text>}
           options={options}
-          cancelButtonIndex={CANCEL_INDEX}
-          destructiveButtonIndex={DESTRUCTIVE_INDEX}
-          onPress={this.handlePress}
+          cancelButtonIndex={0}
+          destructiveButtonIndex={4}
+          onPress={(index) => { /* do something */ }}
         />
       </View>
     )
@@ -133,7 +85,32 @@ class ExampleB extends React.Component {
 }
 ```
 
+### How to redesign style ?
+
+The style of ActionSheet is defined in [lib/styles.js](https://github.com/beefe/react-native-actionsheet/blob/master/lib/styles.js). We can pass the `styles` prop to cover default style. See [Example](https://github.com/beefe/react-native-actionsheet/blob/master/example/app/ExampleB.js#L48) .
+
+```javascript
+// example
+
+const styles = {
+  titleBox: {
+    background: 'pink'
+  },
+  titleText: {
+    fontSize: 16,
+    color: '#000'
+  }
+}
+
+<ActionSheet
+  ...
+  styles={styles}
+/>
+```
+
 ## Props
+
+https://github.com/beefe/react-native-actionsheet/blob/master/lib/options.js
 
 <table>
     <tr>
@@ -183,5 +160,11 @@ class ExampleB extends React.Component {
         <td></td>
         <td>PropTypes.func</td>
         <td>(index) => {}</td>
+    </tr>
+    <tr>
+        <td>styles</td>
+        <td>only for ActionSheetCustom</td>
+        <td></td>
+        <td>{}</td>
     </tr>
 </table>
