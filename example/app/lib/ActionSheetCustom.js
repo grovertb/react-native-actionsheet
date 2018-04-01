@@ -1,8 +1,7 @@
 import React from 'react'
-import { Text, View, Dimensions, Modal, TouchableHighlight, Animated, ScrollView, Easing, StyleSheet } from 'react-native'
-import optionsSchema from './options'
+import { Text, View, Dimensions, Modal, TouchableHighlight, Animated, ScrollView, Easing } from 'react-native'
 import * as utils from './utils'
-import styles2, { hairlineWidth } from './styles'
+import styles2 from './styles'
 
 const WARN_COLOR = '#FF3B30'
 const MAX_HEIGHT = Dimensions.get('window').height * 0.7
@@ -182,8 +181,8 @@ class ActionSheet extends React.Component {
     const { visible, sheetAnim } = this.state
     return (
       <Modal visible={visible}
-        animationType="none"
-        transparent={true}
+        animationType='none'
+        transparent
         onRequestClose={this._cancel}
       >
         <View style={[styles.wrapper]}>
