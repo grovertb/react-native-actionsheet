@@ -1,12 +1,9 @@
 import React from 'react'
-import { Text, View, Dimensions, Modal, TouchableHighlight, Animated, ScrollView } from 'react-native'
+import { Text, View, Dimensions, Modal, TouchableHighlight, Animated, ScrollView, Easing, StyleSheet } from 'react-native'
+import optionsSchema from './options'
 import * as utils from './utils'
-import styles, { hairlineWidth } from './styles'
+import styles2, { hairlineWidth } from './styles'
 
-const TITLE_H = 40
-const BUTTON_H = 50 + hairlineWidth
-const CACEL_MARGIN_TOP = 6
-const MESSAGE_HEIGHT = 20
 const WARN_COLOR = '#FF3B30'
 const MAX_HEIGHT = Dimensions.get('window').height * 0.7
 
@@ -32,15 +29,30 @@ class ActionSheet extends React.Component {
     this.translateY = this._calculateHeight(nextProps)
   }
 
+  get styles () {
+    const { styles } = this.props
+    const obj = {}
+    Object.keys(styles2).forEach((key) => {
+      const arr = [styles2[key]]
+      if (styles[key]) {
+        arr.push(styles[key])
+      }
+      obj[key] = arr
+    })
+    return obj
+  }
+
   show = () => {
-    this.setState({visible: true})
-    this._showSheet()
+    this.setState({visible: true}, () => {
+      this._showSheet()
+    })
   }
 
   hide = (index) => {
     this._hideSheet(() => {
-      this.setState({visible: false})
-      this.props.onPress(index)
+      this.setState({visible: false}, () => {
+        this.props.onPress(index)
+      })
     })
   }
 
@@ -53,36 +65,60 @@ class ActionSheet extends React.Component {
     }
   }
 
-  _showSheet () {
+  _showSheet = () => {
     Animated.timing(this.state.sheetAnim, {
       toValue: 0,
-      duration: 250
+      duration: 250,
+      easing: Easing.out(Easing.ease)
     }).start()
   }
 
   _hideSheet (callback) {
     Animated.timing(this.state.sheetAnim, {
       toValue: this.translateY,
-      duration: 150
-    }).start(callback || function () {})
+      duration: 200
+    }).start(callback)
   }
 
+  /**
+   * elements: titleBox, messageBox, buttonBox, cancelButtonBox
+   * box size: height, marginTop, marginBottom
+   */
   _calculateHeight (props) {
-    let height = props.options.length * BUTTON_H
-    if (props.title) height += TITLE_H
-    if (props.message) height += MESSAGE_HEIGHT
-    if (utils.isset(props.cancelButtonIndex)) height += CACEL_MARGIN_TOP
+    const styles = this.styles
+
+    const getHeight = (name) => {
+      const s = styles[name]
+      let h = 0
+      ;['height', 'marginTop', 'marginBottom'].forEach((attrName) => {
+        if (typeof s[attrName] !== 'undefined') h += s[attrName]
+      })
+      return h
+    }
+
+    let height = 0
+    if (props.title) height += getHeight('titleBox')
+    if (props.message) height += getHeight('messageBox')
+    if (utils.isset(props.cancelButtonIndex)) {
+      height += getHeight('cancelButtonBox')
+      height += (props.options.length - 1) * getHeight('buttonBox')
+    } else {
+      height += props.options.length * getHeight('buttonBox')
+    }
+
     if (height > MAX_HEIGHT) {
       this.scrollEnabled = true
       height = MAX_HEIGHT
     } else {
       this.scrollEnabled = false
     }
+
     return height
   }
 
   _renderTitle () {
     const { title } = this.props
+    const styles = this.styles
     if (!title) return null
     return (
       <View style={styles.titleBox}>
@@ -95,6 +131,7 @@ class ActionSheet extends React.Component {
 
   _renderMessage () {
     const { message } = this.props
+    const styles = this.styles
     if (!message) return null
     return (
       <View style={styles.messageBox}>
@@ -112,17 +149,17 @@ class ActionSheet extends React.Component {
   }
 
   _createButton (title, index) {
+    const styles = this.styles
     const { buttonUnderlayColor, cancelButtonIndex, destructiveButtonIndex, tintColor } = this.props
     const fontColor = destructiveButtonIndex === index ? WARN_COLOR : tintColor
-    const buttonBoxStyle = [styles.buttonBox]
-    if (cancelButtonIndex === index) buttonBoxStyle.push({ marginTop: CACEL_MARGIN_TOP })
+    const buttonBoxStyle = cancelButtonIndex === index ? styles.cancelButtonBox : styles.buttonBox
     return (
       <TouchableHighlight
         key={index}
         activeOpacity={1}
         underlayColor={buttonUnderlayColor}
         style={buttonBoxStyle}
-        onPress={this.hide}
+        onPress={() => this.hide(index)}
       >
         {React.isValidElement(title) ? title : (
           <Text style={[styles.buttonText, {color: fontColor}]}>{title}</Text>
@@ -139,15 +176,19 @@ class ActionSheet extends React.Component {
   }
 
   render () {
+    const styles = this.styles
     const { visible, sheetAnim } = this.state
     return (
-      <Modal
-        visible={visible}
-        animationType='none'
+      <Modal visible={visible}
+        animationType="none"
+        transparent={true}
         onRequestClose={this._cancel}
       >
         <View style={[styles.wrapper]}>
-          <View style={[styles.overlay]} onPress={this._cancel}/>
+          <Animated.View
+            style={[styles.overlay]}
+            onPress={this._cancel}
+          />
           <Animated.View
             style={[
               styles.body,
@@ -164,22 +205,5 @@ class ActionSheet extends React.Component {
     )
   }
 }
-
-// ActionSheet.propTypes = {
-//   title: PropTypes.oneOfType([ PropTypes.string, PropTypes.element]),
-//   message: PropTypes.oneOfType([ PropTypes.string, PropTypes.element]),
-//   options: PropTypes.arrayOf((propVal, key, componentName, location, propFullName) => {
-//     if (typeof propVal[key] !== 'string' && !React.isValidElement(propVal[key])) {
-//       return new Error(
-//         'Invalid prop `' + propFullName + '` supplied to' +
-//         ' `' + componentName + '`. Validation failed.'
-//       )
-//     }
-//   }),
-//   tintColor: PropTypes.string,
-//   cancelButtonIndex: PropTypes.number,
-//   destructiveButtonIndex: PropTypes.number,
-//   onPress: PropTypes.func,
-// }
 
 export default ActionSheet

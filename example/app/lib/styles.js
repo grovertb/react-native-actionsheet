@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native'
-
 export const hairlineWidth = StyleSheet.hairlineWidth
-
-export default StyleSheet.create({
+export default {
   overlay: {
     position: 'absolute',
     top: 0,
@@ -28,7 +26,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff'
   },
   titleText: {
-    color: '#8f8f8f',
+    color: '#858585',
     fontSize: 14
   },
   messageBox: {
@@ -53,5 +51,12 @@ export default StyleSheet.create({
   },
   buttonText: {
     fontSize: 18
+  },
+  cancelButtonBox: {
+    height: 50,
+    marginTop: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff'
   }
-})
+}
