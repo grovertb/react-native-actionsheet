@@ -46,12 +46,7 @@
     "babel-preset-react-native": "^4.0.0",
     "jest": "^21.2.1",
     "react-test-renderer": "15.4.0",
-<<<<<<< Updated upstream
     "standard": "*"
-=======
-    "standard": "*",
-    "babel-eslint": "^8.2.2"
->>>>>>> Stashed changes
   },
   "standard": {
     "parser": "babel-eslint"
