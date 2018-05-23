@@ -115,7 +115,7 @@ https://github.com/beefe/react-native-actionsheet/blob/master/lib/options.js
 <table>
     <tr>
         <th>Prop name</th>
-        <th>Desciption</th>
+        <th>Description</th>
         <th>Type</th>
         <th>Default</th>
     </tr>
