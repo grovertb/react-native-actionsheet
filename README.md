@@ -1,6 +1,6 @@
 # @grovertb/react-native-actionsheet
 
-* [ FIX ] react-native-actionsheet
+* [ FIX ] [react-native-actionsheet](https://github.com/beefe/react-native-actionsheet)
 
 Cross platform ActionSheet. This component implements a custom ActionSheet  and provides the same way to drawing it on the defferent platforms(iOS and Android). Actually, In order to keep the best effect, it still uses the ActionSheetIOS on iOS.
 
