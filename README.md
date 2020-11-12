@@ -1,4 +1,7 @@
-# react-native-actionsheet
+# @grovertb/react-native-actionsheet
+
+* [ FIX ] react-native-actionsheet
+
 Cross platform ActionSheet. This component implements a custom ActionSheet  and provides the same way to drawing it on the defferent platforms(iOS and Android). Actually, In order to keep the best effect, it still uses the ActionSheetIOS on iOS.
 
 <table>
@@ -17,33 +20,34 @@ Cross platform ActionSheet. This component implements a custom ActionSheet  and 
 ## Install
 
 ```
-npm install react-native-actionsheet --save
+npm install @grovertb/react-native-actionsheet --save
 ```
 
 ## Usage
 
 ```js
-import ActionSheet from 'react-native-actionsheet'
+import ActionSheet from '@grovertb/react-native-actionsheet'
 
-class Demo extends React.Component {
-  showActionSheet = () => {
-    this.ActionSheet.show()
+const Demo = () => {
+  const actionSheetRef = React.useRef();
+  
+  const _handleShowActionSheet = () => {
+    actionSheetRef.current.show()
   }
-  render() {
-    return (
-      <View>
-        <Text onPress={this.showActionSheet}>Open ActionSheet</Text>
-        <ActionSheet
-          ref={o => this.ActionSheet = o}
-          title={'Which one do you like ?'}
-          options={['Apple', 'Banana', 'cancel']}
-          cancelButtonIndex={2}
-          destructiveButtonIndex={1}
-          onPress={(index) => { /* do something */ }}
-        />
-      </View>
-    )
-  }
+
+  return (
+    <View>
+      <Text onPress={_handleShowActionSheet}>Open ActionSheet</Text>
+      <ActionSheet
+        ref={actionSheetRef}
+        title={'Which one do you like ?'}
+        options={['Apple', 'Banana', 'cancel']}
+        cancelButtonIndex={2}
+        destructiveButtonIndex={1}
+        onPress={(index) => { /* do something */ }}
+      />
+    </View>
+  )
 }
 ```
 
@@ -53,7 +57,7 @@ class Demo extends React.Component {
 so you can customize option and title
 
 ```js
-import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
+import { ActionSheetCustom as ActionSheet } from '@grovertb/react-native-actionsheet'
 
 const options = [
   'Cancel', 
@@ -63,25 +67,26 @@ const options = [
   <Text style={{color: 'red'}}>Durian</Text>
 ]
 
-class Demo extends React.Component {
-  showActionSheet = () => {
-    this.ActionSheet.show()
+const Demo = () => {
+  const actionSheetRef = React.useRef();
+  
+  const _handleShowActionSheet = () => {
+    actionSheetRef.current.show()
   }
-  render() {
-    return (
-      <View>
-        <Text onPress={this.showActionSheet}>Open ActionSheet</Text>
-        <ActionSheet
-          ref={o => this.ActionSheet = o}
-          title={<Text style={{color: '#000', fontSize: 18}}>Which one do you like?</Text>}
-          options={options}
-          cancelButtonIndex={0}
-          destructiveButtonIndex={4}
-          onPress={(index) => { /* do something */ }}
-        />
-      </View>
-    )
-  }
+
+  return (
+    <View>
+      <Text onPress={_handleShowActionSheet}>Open ActionSheet</Text>
+      <ActionSheet
+        ref={actionSheetRef}
+        title={<Text style={{color: '#000', fontSize: 18}}>Which one do you like?</Text>}
+        options={options}
+        cancelButtonIndex={0}
+        destructiveButtonIndex={4}
+        onPress={(index) => { /* do something */ }}
+      />
+    </View>
+  )
 }
 ```
 
@@ -110,7 +115,7 @@ const styles = {
 
 ## Props
 
-https://github.com/beefe/react-native-actionsheet/blob/master/lib/options.js
+<!-- https://github.com/beefe/react-native-actionsheet/blob/master/lib/options.js -->
 
 <table>
     <tr>
